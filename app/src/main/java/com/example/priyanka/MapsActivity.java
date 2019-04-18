@@ -230,40 +230,58 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ArrayList<LatLng> traffic = new ArrayList<LatLng>();
                 traffic.add(new LatLng(19.1198,72.8465)); // andheri station
                 traffic.add(new LatLng(19.1240,72.8449)); // ayessa palace
-                traffic.add(new LatLng(19.1238,72.8361)); //spit
                 traffic.add(new LatLng(19.1236,72.8422)); // cinema
+                traffic.add(new LatLng(19.1292,72.8360)); // azad nagar
 
 
 
                 for (LatLng ll : traffic)
                 {
-
-                    LatLng latLng = new LatLng(ll.latitude, ll.longitude);
-                    markerOptions.position(latLng);
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    markerOptions.position(ll);
+                    markerOptions.draggable(true);
+                    markerOptions.title("Traffic area");
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                     mMap.addMarker(markerOptions);
 
+//                    LatLng latLng = new LatLng(ll.latitude, ll.longitude);
+//                    markerOptions.position(latLng);
+//                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+//                    mMap.addMarker(markerOptions);
 
 
+//                    dataTransfer[1] = "file:///C:/Users/amank/Desktop/azadnagar.json";
 
-                    url = getDirectionsUrl(end_latitude, end_longitude);
-                    dataTransfer[1] = url;
-
-                    dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-                    new GetDirectionsData().execute(dataTransfer);
+//                    url = getDirectionsUrl(end_latitude, end_longitude);
+//                    dataTransfer[1] = url;
+//
+//                    dataTransfer[2] = new LatLng(end_latitude, end_longitude);
+//                    new GetDirectionsData().execute(dataTransfer);
 
 
                 }
 
 
 
-                int minIndex = getDirectionsData.dur.indexOf(Collections.min(getDirectionsData.dur));
+//                int minIndex = getDirectionsData.dur.indexOf(Collections.min(getDirectionsData.dur));
 
-//                dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-//                getDirectionsData.execute(dataTransfer);
+                ArrayList minDuration = new ArrayList();
+                minDuration.add("920");
+                minDuration.add("567");
+                minDuration.add("594");
+                minDuration.add("417");
+                    int minIndex = minDuration.indexOf(Collections.min(minDuration));
+
+                url = getDirectionsUrl(traffic.get(minIndex).latitude, traffic.get(minIndex).longitude);
+                dataTransfer[1] = url;
+
+                dataTransfer[2] = traffic.get(minIndex);
+
+//                dataTransfer[2] = new LatLng(traffic.get(minIndex).latitude, traffic.get(minIndex).longitude);
+
+                getDirectionsData.execute(dataTransfer);
 
 
-                getDirectionsData.createPath(minIndex);
+//                getDirectionsData.createPath(minIndex);
 
                 break;
 
@@ -276,7 +294,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         StringBuilder googleDirectionsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
         googleDirectionsUrl.append("origin="+latitude+","+longitude);
         googleDirectionsUrl.append("&destination="+lat+","+lon);
-        googleDirectionsUrl.append("&key=AIzaSyAPfj9kC3AW-ZFK_-lQxeAU_fPwo-RiTAE");
+        googleDirectionsUrl.append("&key=AIzaSyD1FtUP5quVWsHmFxuWs5nQV6Oh9xhIilw");
 
         return googleDirectionsUrl.toString();
     }
@@ -335,7 +353,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.draggable(true);
         markerOptions.title("Current Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+        mMap.addMarker(markerOptions);
+//        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
