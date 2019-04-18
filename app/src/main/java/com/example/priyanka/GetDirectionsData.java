@@ -1,5 +1,6 @@
 package com.example.priyanka;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,7 +13,9 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +51,8 @@ public class GetDirectionsData extends AsyncTask<Object,String,String> {
         }
 
         return googleDirectionsData;
+
+
     }
 
     @Override
@@ -58,7 +63,7 @@ public class GetDirectionsData extends AsyncTask<Object,String,String> {
         dur.add(parser.duration);
         directionsList = parser.parseDirections(s);
         al.add(directionsList);
-//        displayDirection(directionsList);
+        displayDirection(directionsList);
 
     }
 

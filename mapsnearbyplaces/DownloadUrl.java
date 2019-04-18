@@ -1,4 +1,4 @@
-package com.example.priyanka.mapsnearbyplaces;
+package com.example.priyanka;
 
 import android.renderscript.ScriptGroup;
 import android.util.Log;
